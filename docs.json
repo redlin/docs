@@ -48,8 +48,7 @@
             "pages": [
               "api-reference/endpoint/generate-image",
               "api-reference/endpoint/get-images",
-              "api-reference/endpoint/get-image",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/get-image"
             ]
           }
         ]
