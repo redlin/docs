@@ -1,0 +1,85 @@
+---
+title: 'Generate Image'
+openapi: 'POST /api/images'
+---
+
+Generates an image based on a template and modifications.
+
+## Authentication
+
+This endpoint requires an API key for authentication. Include your API key in the request headers using the `x-api-key` header.
+
+## Request Body
+
+```json
+{
+  "template_id": "string",
+  "modifications": {
+    // Template-specific modifications
+  }
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| template_id | string | Yes | The ID of the template to use for generation |
+| modifications | object | Yes | The modifications to apply to the template |
+
+## Response
+
+### Success Response (200 OK)
+
+```json
+{
+  "status": "success",
+  "id": "string",
+  "image_url": "string"
+}
+```
+
+### Error Response (400 Bad Request)
+
+```json
+{
+  "error": "templateId must be provided"
+}
+```
+
+### Error Response (401 Unauthorized)
+
+```json
+{
+  "error": "Unauthorized"
+}
+```
+
+### Error Response (403 Forbidden)
+
+```json
+{
+  "error": "Unauthorized: You do not have access to this template"
+}
+```
+
+### Error Response (500 Internal Server Error)
+
+```json
+{
+  "error": "Error message"
+}
+```
+
+## Example
+
+```bash
+curl -X POST "https://api.example.com/api/images" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: YOUR_API_KEY" \
+  -d '{
+    "template_id": "template123",
+    "modifications": {
+      "text": "Hello World",
+      "color": "#FF0000"
+    }
+  }'
+```

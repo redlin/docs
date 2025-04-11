@@ -1,0 +1,63 @@
+---
+title: 'Get Images'
+openapi: 'GET /api/images'
+---
+
+Retrieves a paginated list of successfully generated images for the authenticated user.
+
+## Authentication
+
+This endpoint requires an API key for authentication. Include your API key in the request headers using the `x-api-key` header.
+
+## Query Parameters
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| page | number | No | 1 | The page number for pagination |
+| pageSize | number | No | 10 | The number of items per page |
+
+## Response
+
+### Success Response (200 OK)
+
+```json
+{
+  "data": [
+    {
+      "id": "string",
+      "created_at": "string (ISO date)",
+      "template_id": "string",
+      "image_url": "string"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "pageSize": 10,
+    "total": 100,
+    "totalPages": 10
+  }
+}
+```
+
+### Error Response (401 Unauthorized)
+
+```json
+{
+  "error": "Unauthorized"
+}
+```
+
+### Error Response (500 Internal Server Error)
+
+```json
+{
+  "error": "Error message"
+}
+```
+
+## Example
+
+```bash
+curl -X GET "https://api.example.com/api/images?page=1&pageSize=20" \
+  -H "x-api-key: YOUR_API_KEY"
+```
