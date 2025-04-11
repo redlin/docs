@@ -46,9 +46,9 @@
           {
             "group": "Endpoint Examples",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
+              "api-reference/endpoint/generate-images",
+              "api-reference/endpoint/get-images",
+              "api-reference/endpoint/get-image",
               "api-reference/endpoint/webhook"
             ]
           }
