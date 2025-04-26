@@ -14,16 +14,41 @@ This endpoint requires an API key for authentication. Include your API key in th
 ```json
 {
   "template_id": "string",
-  "modifications": {
-    // Template-specific modifications
-  }
+  "modifications": [
+    {
+      "name": "string",
+      "text": "string | null",
+      "color": "string | null",
+      "background": "string | null",
+      "image_url": "string | null",
+      "rating": number
+    }
+  ]
 }
 ```
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | template_id | string | Yes | The ID of the template to use for generation |
-| modifications | object | Yes | The modifications to apply to the template |
+| modifications | array | Yes | Array of modifications to apply to template elements |
+| modifications[].name | string | Yes | The name of the element to modify (must match an element in the template) |
+| modifications[].text | string \| null | No | New text content for text elements. Set to null to reset to default. |
+| modifications[].color | string \| null | No | New color value for text, SVG, and shape elements. Set to null to reset to default. |
+| modifications[].background | string \| null | No | New background color for elements that support it. Set to null to reset to default. |
+| modifications[].image_url | string \| null | No | New image URL for image and SVG elements. Set to null to reset to default. |
+| modifications[].rating | number | No | New rating value for star rating elements (typically 1-5) |
+
+## Element Types and Their Modifiable Properties
+
+Different element types support different modification properties:
+
+| Element Type | Modifiable Properties |
+|-------------|----------------------|
+| text | text, color |
+| image | image_url |
+| svg | image_url, color |
+| starRating | rating |
+| rectangle, circle, ellipse, star, triangle, diamond, pentagon, hexagon, heart, semicircle, cross, arrow, trapezoid, wedge, ring | color |
 
 ## Response
 
@@ -82,4 +107,36 @@ curl -X POST "https://api.gnomy.io/api/images" \
       "color": "#FF0000"
     }
   }'
+```
+
+## Example Request
+
+```json
+{
+  "template_id": "8f628cd3-59f6-4f03-9ecb-983a21d3b58a",
+  "modifications": [
+    {
+      "name": "image_1",
+      "image_url": "https://example.com/image.jpg"
+    },
+    {
+      "name": "text",
+      "text": "Custom text content",
+      "color": null
+    },
+    {
+      "name": "svg_1",
+      "color": "#FF0000",
+      "image_url": "https://example.com/icon.svg"
+    },
+    {
+      "name": "starRating123",
+      "rating": 5
+    },
+    {
+      "name": "rectangle",
+      "color": "#000000"
+    }
+  ]
+}
 ```
