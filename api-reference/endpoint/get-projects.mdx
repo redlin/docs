@@ -1,9 +1,9 @@
 ---
-title: 'Get Images'
-openapi: 'GET /api/images'
+title: 'Get Projects'
+openapi: 'GET /api/projects'
 ---
 
-Retrieves a paginated list of successfully generated images for the authenticated user.
+Retrieves a paginated list of projects for the authenticated user.
 
 ## Authentication
 
@@ -25,9 +25,10 @@ This endpoint requires an API key for authentication. Include your API key in th
   "data": [
     {
       "id": "string",
+      "user_id": "string",
       "created_at": "string (ISO date)",
-      "template_id": "string",
-      "image_url": "string"
+      "name": "string",
+      "description": "string"
     }
   ],
   "pagination": {
@@ -58,6 +59,6 @@ This endpoint requires an API key for authentication. Include your API key in th
 ## Example
 
 ```bash
-curl -X GET "https://api.gnomy.io/api/images?page=1&pageSize=20" \
+curl -X GET "https://api.gnomy.io/api/projects?page=1&pageSize=20" \
   -H "x-api-key: YOUR_API_KEY"
-```
+``` 

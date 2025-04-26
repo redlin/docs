@@ -1,20 +1,15 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'API documentation for the Gnomy Image Generation service'
 ---
-
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
 
 ## Welcome
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+This documentation provides comprehensive information about the Gnomy Image Generation API, which allows you to generate and manage images based on templates. The API is built using OpenAPI 3.1.0 specification and provides endpoints for managing projects, templates, and generated images.
 
 <Card
-  title="Plant Store Endpoints"
-  icon="leaf"
+  title="Image Generation API Endpoints"
+  icon="image"
   href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
 >
   View the OpenAPI specification file
@@ -22,12 +17,61 @@ There are two ways to build API documentation: [OpenAPI](https://mintlify.com/do
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API endpoints are authenticated using an API key. The API key should be included in the request header using the `x-api-key` header:
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+```bash
+x-api-key: YOUR_API_KEY
 ```
+
+## Base URL
+
+The API is accessible at:
+```
+https://api.gnomy.io
+```
+
+## Key Features
+
+- Project Management: Create and manage image generation projects
+- Template Management: Handle templates for image generation
+- Image Generation: Generate and retrieve images based on templates
+- Pagination Support: All list endpoints support pagination
+- Error Handling: Comprehensive error responses for all endpoints
+
+## Example Usage
+
+Here's an example of how to generate an image using the API:
+
+```javascript
+const data = {
+  "template": "<TEMPLATE_ID>",
+  "modifications": [
+    {
+      "name": "layer1",
+      "text": "This is my text"
+    },
+    {
+      "name": "photo",
+      "image_url": "https://www.pathtomyphoto.com/1.jpg"
+    }
+  ]
+}
+
+fetch('https://api.gnomy.io/api/images', {
+  method: 'POST',
+  body: JSON.stringify(data),
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': '<YOUR_API_KEY>'
+  }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
+```
+
+This example demonstrates:
+- Setting up the request payload with template ID and modifications
+- Making a POST request to the images endpoint
+- Including the required headers (Content-Type and x-api-key)
+- Handling the response and potential errors

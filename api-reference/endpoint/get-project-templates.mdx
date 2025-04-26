@@ -1,13 +1,19 @@
 ---
-title: 'Get Images'
-openapi: 'GET /api/images'
+title: 'Get Project Templates'
+openapi: 'GET /api/projects/{id}/templates'
 ---
 
-Retrieves a paginated list of successfully generated images for the authenticated user.
+Retrieves a paginated list of templates for a specific project.
 
 ## Authentication
 
 This endpoint requires an API key for authentication. Include your API key in the request headers using the `x-api-key` header.
+
+## Path Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| id | string | Yes | The ID of the project |
 
 ## Query Parameters
 
@@ -25,9 +31,14 @@ This endpoint requires an API key for authentication. Include your API key in th
   "data": [
     {
       "id": "string",
-      "created_at": "string (ISO date)",
+      "project_id": "string",
       "template_id": "string",
-      "image_url": "string"
+      "name": "string",
+      "size": "string",
+      "preview_image": "string",
+      "preview_thumbnail": "string",
+      "descriptions": "string",
+      "created_at": "string (ISO date)"
     }
   ],
   "pagination": {
@@ -39,11 +50,27 @@ This endpoint requires an API key for authentication. Include your API key in th
 }
 ```
 
+### Error Response (400 Bad Request)
+
+```json
+{
+  "error": "Project ID is required"
+}
+```
+
 ### Error Response (401 Unauthorized)
 
 ```json
 {
   "error": "Unauthorized"
+}
+```
+
+### Error Response (404 Not Found)
+
+```json
+{
+  "error": "Project not found or you do not have access to this project"
 }
 ```
 
@@ -58,6 +85,6 @@ This endpoint requires an API key for authentication. Include your API key in th
 ## Example
 
 ```bash
-curl -X GET "https://api.gnomy.io/api/images?page=1&pageSize=20" \
+curl -X GET "https://api.gnomy.io/api/projects/project123/templates?page=1&pageSize=20" \
   -H "x-api-key: YOUR_API_KEY"
-```
+``` 
